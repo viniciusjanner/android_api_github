@@ -3,6 +3,7 @@ package com.viniciusjanner.apigithub.presentation.list
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.toLiveData
 import androidx.paging.PagingData
@@ -19,26 +20,27 @@ class RepoListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _repositoriesSubject = BehaviorSubject.create<PagingData<ItemRepoModel>>()
-
     val repositoriesLiveData: LiveData<PagingData<ItemRepoModel>> =
         _repositoriesSubject.toFlowable(BackpressureStrategy.BUFFER)
             .toLiveData()
 
-    init {
-        fetchPopularJavaRepositories()
-    }
+    private val _errorLiveData = MutableLiveData<String?>()
+    val errorLiveData: LiveData<String?> = _errorLiveData
 
     @SuppressLint("CheckResult")
     fun fetchPopularJavaRepositories() {
+        _errorLiveData.postValue(null)
         _repositoriesSubject.onNext(PagingData.empty())
         getPopularJavaRepositoriesUseCase.invoke()
             .subscribe(
                 { pagingData ->
                     _repositoriesSubject.onNext(pagingData)
+                    _errorLiveData.postValue(null)
                 },
                 { error ->
                     Log.e("RepoListViewModel", "Error: ${error.message}")
                     error.printStackTrace()
+                    _errorLiveData.postValue("Ocorreu um erro. Tente novamente.")
                 }
             )
     }

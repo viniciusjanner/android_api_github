@@ -37,24 +37,61 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
     ): View? {
         _binding = FragmentRepoListBinding.inflate(inflater, container, false)
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            repoListViewModel.fetchPopularJavaRepositories()
-        }
+        initComponents()
+        initListeners()
+        initObservers()
+        fetchData()
 
+        return binding.root
+    }
+
+    private fun initComponents() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = repoListAdapter
         }
+    }
 
+    private fun initListeners() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            fetchData()
+        }
+
+        binding.retryButton.setOnClickListener {
+            fetchData()
+        }
+    }
+
+    private fun initObservers() {
         repoListViewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer { pagingData ->
             repoListAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+            showRecyclerView()
         })
 
-        repoListViewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer {
-            binding.swipeRefreshLayout.isRefreshing = false
+        repoListViewModel.errorLiveData.observe(viewLifecycleOwner, Observer { error ->
+            if (error != null) {
+                showError()
+            }
         })
+    }
 
-        return binding.root
+    private fun fetchData() {
+        showLoading()
+        repoListViewModel.fetchPopularJavaRepositories()
+    }
+
+    private fun showLoading() {
+        binding.viewFlipper.displayedChild = 0
+    }
+
+    private fun showRecyclerView() {
+        binding.viewFlipper.displayedChild = 1
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun showError() {
+        binding.viewFlipper.displayedChild = 2
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onDestroyView() {
