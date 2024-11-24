@@ -29,7 +29,8 @@ class RepoListViewModel @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-   fun fetchPopularJavaRepositories() {
+    fun fetchPopularJavaRepositories() {
+        _repositoriesSubject.onNext(PagingData.empty())
         getPopularJavaRepositoriesUseCase.invoke()
             .subscribe(
                 { pagingData ->

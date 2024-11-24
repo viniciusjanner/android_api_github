@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.swipeRefreshLayout)
 
     // Bumptech Glide
     implementation(libs.bumptech.glide.glide)

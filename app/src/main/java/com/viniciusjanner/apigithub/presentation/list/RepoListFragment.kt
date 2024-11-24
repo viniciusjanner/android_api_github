@@ -37,6 +37,10 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
     ): View? {
         _binding = FragmentRepoListBinding.inflate(inflater, container, false)
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            repoListViewModel.fetchPopularJavaRepositories()
+        }
+
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = repoListAdapter
@@ -44,6 +48,10 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
 
         repoListViewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer { pagingData ->
             repoListAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        })
+
+        repoListViewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer {
+            binding.swipeRefreshLayout.isRefreshing = false
         })
 
         return binding.root
