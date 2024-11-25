@@ -1,7 +1,7 @@
 package com.viniciusjanner.apigithub.framework.data.remote.response
 
 import com.google.gson.annotations.SerializedName
-import com.viniciusjanner.apigithub.core.domain.model.ItemRepoModel
+import com.viniciusjanner.domain.model.ItemRepoModel
 import java.io.Serializable
 
 data class ItemRepoResponse(

@@ -37,6 +37,8 @@ versionTestMockito = "5.3.1"
 versionTestMockitoKotlin = "5.1.0" # versao compativel
 versionTestJUnit = "4.13.2"
 versionTestRxJava3Testing = "3.1.5"
+junit = "1.2.1"
+espressoCore = "3.6.1"
 
 
 [libraries]
@@ -89,6 +91,8 @@ test-unit-mockito-inline = { group = "org.mockito",          name = "mockito-inl
 test-unit-mockito-kotlin = { group = "org.mockito.kotlin",   name = "mockito-kotlin", version.ref = "versionTestMockitoKotlin" } # Versão compatível
 test-unit-junit-junit    = { group = "junit",                name = "junit",          version.ref = "versionTestJUnit" }
 test-unit-rxjava3-test   = { group = "io.reactivex.rxjava3", name = "rxjava3-test",   version.ref = "versionTestRxJava3Testing" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 
 [plugins]
@@ -105,3 +109,4 @@ kotlin-kapt         = { id = "org.jetbrains.kotlin.kapt",    version.ref = "vers
 
 # Plugins Google
 google-dagger-hilt  = { id = "com.google.dagger.hilt.android", version.ref = "versionGoogleDaggerHilt" }
+android-library = { id = "com.android.library", version.ref = "agp" }

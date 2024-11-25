@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.viniciusjanner.apigithub.core.domain.model.ItemRepoModel
 import com.viniciusjanner.apigithub.databinding.ItemRepoListBinding
 import com.viniciusjanner.apigithub.framework.imageloader.ImageLoader
+import com.viniciusjanner.domain.model.ItemRepoModel
 
 class RepoListAdapter(
     private val imageLoader: ImageLoader,

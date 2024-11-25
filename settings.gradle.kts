@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "API GitHub"
 include(":app")
+include(":core")

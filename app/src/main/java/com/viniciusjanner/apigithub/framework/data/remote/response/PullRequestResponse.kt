@@ -1,7 +1,7 @@
 package com.viniciusjanner.apigithub.framework.data.remote.response
 
 import com.google.gson.annotations.SerializedName
-import com.viniciusjanner.apigithub.core.domain.model.PullRequestModel
+import com.viniciusjanner.domain.model.PullRequestModel
 import java.io.Serializable
 
 data class PullRequestResponse(

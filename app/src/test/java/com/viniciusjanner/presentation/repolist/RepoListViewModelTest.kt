@@ -3,9 +3,9 @@ package com.viniciusjanner.presentation.repolist
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.paging.PagingData
-import com.viniciusjanner.apigithub.core.domain.model.ItemRepoModel
 import com.viniciusjanner.apigithub.core.usecase.GetPopularJavaRepositoriesUseCase
 import com.viniciusjanner.apigithub.presentation.list.RepoListViewModel
+import com.viniciusjanner.domain.model.ItemRepoModel
 import io.reactivex.rxjava3.core.Observable
 import org.junit.Before
 import org.junit.Rule
