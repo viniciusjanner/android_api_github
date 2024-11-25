@@ -11,6 +11,8 @@ fun String.toBrazilianDate(): String {
         isoFormatter.timeZone = TimeZone.getTimeZone("UTC")
 
         val brazilFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale("pt", "BR"))
+        brazilFormatter.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")  // Ajustando para o fuso horário do Brasil
+
         val date: Date = isoFormatter.parse(this) ?: return this
         brazilFormatter.format(date)
 
@@ -18,3 +20,4 @@ fun String.toBrazilianDate(): String {
         this
     }
 }
+
