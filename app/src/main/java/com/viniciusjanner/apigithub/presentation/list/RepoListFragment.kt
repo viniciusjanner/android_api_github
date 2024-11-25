@@ -25,11 +25,7 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
 
     private val repoListAdapter: RepoListAdapter by lazy {
         RepoListAdapter(imageLoader) { itemRepoListResponse ->
-            val action = RepoListFragmentDirections.actionRepoListFragmentToRepoPullRequestFragment(
-                repoName = itemRepoListResponse.name ?: "",
-                repoUserName = itemRepoListResponse.userName ?: ""
-            )
-            findNavController().navigate(action)
+
         }
     }
 
