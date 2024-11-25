@@ -37,10 +37,6 @@ class RepoPullRequestViewModel @Inject constructor(
         _pullRequestsSubject.onNext(PagingData.empty())
 
         getPullRequestsUseCase.invoke(owner, repoName)
-            .doOnSubscribe {
-                _loadingLiveData.postValue(true)
-                _errorLiveData.postValue(null)
-            }
             .doFinally {
                 _loadingLiveData.postValue(false)
             }

@@ -29,8 +29,14 @@ versionSquareupOkhttp3  = "4.12.0"
 versionSquareupRetrofit = "2.11.0"
 
 # Versions RxJava
-versionRxJava = "3.1.9"
+versionRxJava = "3.1.9" #""3.1.9"
 versionRxAndroid = "3.0.2"
+
+# Versions Test
+versionTestMockito = "5.3.1"
+versionTestMockitoKotlin = "5.1.0" # versao compativel
+versionTestJUnit = "4.13.2"
+versionTestRxJava3Testing = "3.1.5"
 
 
 [libraries]
@@ -76,6 +82,13 @@ squareup-okhttp3-okhttp3            = { group = "com.squareup.okhttp3",   name =
 squareup-retrofit2-adapterRxjava3   = { group = "com.squareup.retrofit2", name = "adapter-rxjava3",     version.ref = "versionSquareupRetrofit" }
 squareup-retrofit2-converterGson    = { group = "com.squareup.retrofit2", name = "converter-gson",      version.ref = "versionSquareupRetrofit" }
 squareup-retrofit2-retrofit         = { group = "com.squareup.retrofit2", name = "retrofit",            version.ref = "versionSquareupRetrofit" }
+
+# Libraries Test
+test-unit-mockito-core   = { group = "org.mockito",          name = "mockito-core",   version.ref = "versionTestMockito" }
+test-unit-mockito-inline = { group = "org.mockito",          name = "mockito-inline", version.ref = "versionTestMockito" }
+test-unit-mockito-kotlin = { group = "org.mockito.kotlin",   name = "mockito-kotlin", version.ref = "versionTestMockitoKotlin" } # Versão compatível
+test-unit-junit-junit    = { group = "junit",                name = "junit",          version.ref = "versionTestJUnit" }
+test-unit-rxjava3-test   = { group = "io.reactivex.rxjava3", name = "rxjava3-test",   version.ref = "versionTestRxJava3Testing" }
 
 
 [plugins]

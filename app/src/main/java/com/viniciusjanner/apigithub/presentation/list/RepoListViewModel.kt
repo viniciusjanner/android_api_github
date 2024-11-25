@@ -37,10 +37,6 @@ class RepoListViewModel @Inject constructor(
         _repositoriesSubject.onNext(PagingData.empty())
 
         getPopularJavaRepositoriesUseCase.invoke()
-            .doOnSubscribe {
-                _loadingLiveData.postValue(true)
-                _errorLiveData.postValue(null)
-            }
             .doFinally {
                 _loadingLiveData.postValue(false)
             }
