@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.viniciusjanner.apigithub.core.domain.model.ItemRepoModel
 import java.io.Serializable
 
-data class RepoItemResponse(
+data class ItemRepoResponse(
     val id: Long?,
     @SerializedName("node_id")
     val nodeId: String?,
@@ -149,7 +149,7 @@ data class RepoItemResponse(
     val score: Double?
 ) : Serializable
 
-fun RepoItemResponse.toItemRepoModel(): ItemRepoModel {
+fun ItemRepoResponse.toItemRepoModel(): ItemRepoModel {
     return ItemRepoModel(
         id = this.id,
         name = this.name,

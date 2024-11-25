@@ -4,7 +4,7 @@ import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
 import com.viniciusjanner.apigithub.core.domain.model.ItemRepoModel
 import com.viniciusjanner.apigithub.framework.data.remote.api.GitHubApi
-import com.viniciusjanner.apigithub.framework.data.remote.response.RepoItemResponse
+import com.viniciusjanner.apigithub.framework.data.remote.response.ItemRepoResponse
 import com.viniciusjanner.apigithub.framework.data.remote.response.toItemRepoModel
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -21,7 +21,7 @@ class RepoListPagingSource(
         return api.getPopularJavaRepositories(page = page)
             .subscribeOn(Schedulers.io())
             .map { response ->
-                val itemsResponse: List<RepoItemResponse> = response.items ?: emptyList()
+                val itemsResponse: List<ItemRepoResponse> = response.items ?: emptyList()
                 val itemsModel = itemsResponse.map { it.toItemRepoModel() }
 
                 LoadResult.Page(

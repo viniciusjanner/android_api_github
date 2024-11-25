@@ -6,5 +6,5 @@ import java.io.Serializable
 data class RepoListResponse(
     @SerializedName("total_count") val totalCount: Int?,
     @SerializedName("incomplete_results") val isIncompleteResults: Boolean?,
-    @SerializedName("items") val items: List<RepoItemResponse>?
+    @SerializedName("items") val items: List<ItemRepoResponse>?
 ) : Serializable
