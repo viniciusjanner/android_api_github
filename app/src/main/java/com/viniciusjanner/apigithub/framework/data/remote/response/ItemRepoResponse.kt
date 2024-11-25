@@ -12,7 +12,7 @@ data class ItemRepoResponse(
     @SerializedName("full_name")
     val fullName: String?,
     val isPrivate: Boolean?,
-    val owner: RepoOwnerResponse?,
+    val owner: OwnerResponse?,
     @SerializedName("html_url")
     val htmlUrl: String?,
     val description: String?,
@@ -131,7 +131,7 @@ data class ItemRepoResponse(
     val isDisabled: Boolean?,
     @SerializedName("open_issues_count")
     val openIssuesCount: Long?,
-    val license: RepoLicenseResponse?,
+    val license: LicenseResponse?,
     @SerializedName("allow_forking")
     val isAllowForking: Boolean?,
     @SerializedName("is_template")
