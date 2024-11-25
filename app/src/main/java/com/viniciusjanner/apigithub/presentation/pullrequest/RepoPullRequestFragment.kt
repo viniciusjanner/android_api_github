@@ -1,4 +1,4 @@
-package com.viniciusjanner.apigithub.presentation.list
+package com.viniciusjanner.apigithub.presentation.pullrequest
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,30 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.viniciusjanner.apigithub.R
-import com.viniciusjanner.apigithub.databinding.FragmentRepoListBinding
+import com.viniciusjanner.apigithub.databinding.FragmentRepoPullRequestBinding
 import com.viniciusjanner.apigithub.framework.imageloader.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
+class RepoPullRequestFragment : Fragment(R.layout.fragment_repo_pull_request) {
 
-    private var _binding: FragmentRepoListBinding? = null
+    private var _binding: FragmentRepoPullRequestBinding? = null
     private val binding get() = _binding!!
 
-    private val repoListViewModel: RepoListViewModel by viewModels()
+    private var repoName: String? = null
+    private var repoUserName: String? = null
 
-    private val repoListAdapter: RepoListAdapter by lazy {
-        RepoListAdapter(imageLoader) { itemRepoListResponse ->
-            val action = RepoListFragmentDirections.actionRepoListFragmentToRepoPullRequestFragment(
-                repoName = itemRepoListResponse.name ?: "",
-                repoUserName = itemRepoListResponse.userName ?: ""
-            )
-            findNavController().navigate(action)
-        }
+    private val repoPullRequestViewModel: RepoPullRequestViewModel by viewModels()
+
+    private val repoPullRequestAdapter: RepoPullRequestAdapter by lazy {
+        RepoPullRequestAdapter(imageLoader)
     }
 
     @Inject
@@ -40,23 +36,31 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRepoListBinding.inflate(inflater, container, false)
+        _binding = FragmentRepoPullRequestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initArgs()
         initComponents()
         initListeners()
         initObservers()
         fetchData()
     }
 
+    private fun initArgs() {
+        arguments?.let {
+            repoName = it.getString("repoName", null)
+            repoUserName = it.getString("repoUserName", null)
+        }
+    }
+
     private fun initComponents() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = repoListAdapter
+            adapter = repoPullRequestAdapter
         }
     }
 
@@ -71,18 +75,18 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
     }
 
     private fun initObservers() {
-        repoListViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
+        repoPullRequestViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) {
                 showLoading()
             }
         })
 
-        repoListViewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer { pagingData ->
-            repoListAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        repoPullRequestViewModel.pullRequestsLiveData.observe(viewLifecycleOwner, Observer { pagingData ->
+            repoPullRequestAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
             showRecyclerView()
         })
 
-        repoListViewModel.errorLiveData.observe(viewLifecycleOwner, Observer { error ->
+        repoPullRequestViewModel.errorLiveData.observe(viewLifecycleOwner, Observer { error ->
             if (error != null) {
                 showError()
             }
@@ -90,7 +94,16 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
     }
 
     private fun fetchData() {
-        repoListViewModel.fetchPopularJavaRepositories()
+        if (isValidArgs()) {
+            repoPullRequestViewModel.fetchPullRequests(owner = repoUserName!!, repoName = repoName!!)
+        } else {
+            showError()
+        }
+    }
+
+    private fun isValidArgs(): Boolean {
+        return repoUserName != null && repoUserName!!.isNotEmpty() &&
+                repoName != null && repoName!!.isNotEmpty()
     }
 
     private fun showLoading() {
