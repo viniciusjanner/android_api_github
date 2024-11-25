@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.viniciusjanner.apigithub.R
 import com.viniciusjanner.apigithub.databinding.FragmentRepoListBinding
@@ -36,13 +37,16 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRepoListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initComponents()
         initListeners()
         initObservers()
         fetchData()
-
-        return binding.root
     }
 
     private fun initComponents() {
@@ -63,6 +67,12 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
     }
 
     private fun initObservers() {
+        repoListViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                showLoading()
+            }
+        })
+
         repoListViewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer { pagingData ->
             repoListAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
             showRecyclerView()
@@ -76,12 +86,12 @@ class RepoListFragment : Fragment(R.layout.fragment_repo_list) {
     }
 
     private fun fetchData() {
-        showLoading()
         repoListViewModel.fetchPopularJavaRepositories()
     }
 
     private fun showLoading() {
         binding.viewFlipper.displayedChild = 0
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     private fun showRecyclerView() {

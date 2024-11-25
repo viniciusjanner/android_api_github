@@ -3,7 +3,7 @@ package com.viniciusjanner.apigithub.framework.data.remote.response
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class RepoOwnerResponse(
+data class OwnerResponse(
     val login: String?,
     val id: Long?,
     @SerializedName("node_id")

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.viniciusjanner.apigithub.core.domain.model.ItemRepoModel
 import java.io.Serializable
 
-data class RepoItemResponse(
+data class ItemRepoResponse(
     val id: Long?,
     @SerializedName("node_id")
     val nodeId: String?,
@@ -12,7 +12,7 @@ data class RepoItemResponse(
     @SerializedName("full_name")
     val fullName: String?,
     val isPrivate: Boolean?,
-    val owner: RepoOwnerResponse?,
+    val owner: OwnerResponse?,
     @SerializedName("html_url")
     val htmlUrl: String?,
     val description: String?,
@@ -131,7 +131,7 @@ data class RepoItemResponse(
     val isDisabled: Boolean?,
     @SerializedName("open_issues_count")
     val openIssuesCount: Long?,
-    val license: RepoLicenseResponse?,
+    val license: LicenseResponse?,
     @SerializedName("allow_forking")
     val isAllowForking: Boolean?,
     @SerializedName("is_template")
@@ -149,7 +149,7 @@ data class RepoItemResponse(
     val score: Double?
 ) : Serializable
 
-fun RepoItemResponse.toItemRepoModel(): ItemRepoModel {
+fun ItemRepoResponse.toItemRepoModel(): ItemRepoModel {
     return ItemRepoModel(
         id = this.id,
         name = this.name,
