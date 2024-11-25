@@ -53,6 +53,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+
     // AndroidX
     implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)

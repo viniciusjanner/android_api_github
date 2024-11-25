@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.viniciusjanner.apigithub.core.domain.model.PullRequestModel
 import com.viniciusjanner.apigithub.databinding.ItemRepoPullRequestBinding
 import com.viniciusjanner.apigithub.framework.imageloader.ImageLoader
 import com.viniciusjanner.apigithub.utils.toBrazilianDate
+import com.viniciusjanner.domain.model.PullRequestModel
 
 class RepoPullRequestAdapter(
     private val imageLoader: ImageLoader

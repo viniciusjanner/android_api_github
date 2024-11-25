@@ -1,4 +1,4 @@
-package com.viniciusjanner.apigithub.core.domain.model
+package com.viniciusjanner.domain.model
 
 data class PullRequestModel(
     val id: Long?,

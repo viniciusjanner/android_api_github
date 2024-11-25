@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.toLiveData
 import androidx.paging.PagingData
-import com.viniciusjanner.apigithub.core.domain.model.PullRequestModel
 import com.viniciusjanner.apigithub.core.usecase.GetPullRequestsUseCase
+import com.viniciusjanner.domain.model.PullRequestModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.subjects.BehaviorSubject

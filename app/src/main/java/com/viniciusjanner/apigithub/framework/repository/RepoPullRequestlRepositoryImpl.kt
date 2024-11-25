@@ -4,10 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.rxjava3.observable
-import com.viniciusjanner.apigithub.core.data.repository.RepoPullRequestlRepository
-import com.viniciusjanner.apigithub.core.domain.model.PullRequestModel
 import com.viniciusjanner.apigithub.framework.data.remote.api.GitHubApi
 import com.viniciusjanner.apigithub.framework.paging.RepoPullRequestPagingSource
+import com.viniciusjanner.data.repository.RepoPullRequestlRepository
+import com.viniciusjanner.domain.model.PullRequestModel
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
