@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/RepoListFragment">
+
+    <fragment
+        android:launchMode="singleTop"
+        android:id="@+id/RepoListFragment"
+        android:name="com.viniciusjanner.apigithub.presentation.list.RepoListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_repo_list">
+        <action
+            android:id="@+id/action_RepoListFragment_to_RepoPullRequestFragment"
+            app:destination="@id/RepoPullRequestFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="repoName"
+                app:argType="string" />
+            <argument
+                android:name="repoUserName"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/RepoPullRequestFragment"
+        android:name="com.viniciusjanner.apigithub.presentation.pullrequest.RepoPullRequestFragment"
+        android:label="Pull Requests"
+        tools:layout="@layout/fragment_repo_pull_request">
+    </fragment>
+
+</navigation>
