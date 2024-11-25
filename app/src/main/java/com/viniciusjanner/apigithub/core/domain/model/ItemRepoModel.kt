@@ -9,5 +9,5 @@ data class ItemRepoModel(
     val forksCount: Long?,
     val stargazersCount: Long?,
     val avatarUrl: String?,
-    val userName: String?,
+    val userName: String?
 ) : Serializable

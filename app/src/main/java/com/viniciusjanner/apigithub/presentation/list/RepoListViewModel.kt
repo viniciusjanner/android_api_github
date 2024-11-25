@@ -1,7 +1,6 @@
 package com.viniciusjanner.apigithub.presentation.list
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,22 +23,32 @@ class RepoListViewModel @Inject constructor(
         _repositoriesSubject.toFlowable(BackpressureStrategy.BUFFER)
             .toLiveData()
 
+    private val _loadingLiveData = MutableLiveData<Boolean>()
+    val loadingLiveData: LiveData<Boolean> = _loadingLiveData
+
     private val _errorLiveData = MutableLiveData<String?>()
     val errorLiveData: LiveData<String?> = _errorLiveData
 
     @SuppressLint("CheckResult")
     fun fetchPopularJavaRepositories() {
+        _loadingLiveData.postValue(true)
         _errorLiveData.postValue(null)
+
         _repositoriesSubject.onNext(PagingData.empty())
+
         getPopularJavaRepositoriesUseCase.invoke()
+            .doOnSubscribe {
+                _loadingLiveData.postValue(true)
+                _errorLiveData.postValue(null)
+            }
+            .doFinally {
+                _loadingLiveData.postValue(false)
+            }
             .subscribe(
                 { pagingData ->
                     _repositoriesSubject.onNext(pagingData)
-                    _errorLiveData.postValue(null)
                 },
                 { error ->
-                    Log.e("RepoListViewModel", "Error: ${error.message}")
-                    error.printStackTrace()
                     _errorLiveData.postValue("Ocorreu um erro. Tente novamente.")
                 }
             )
